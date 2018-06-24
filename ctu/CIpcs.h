@@ -1,0 +1,17 @@
+/*
+ * CIpcs.h
+ *
+ *  Created on: 2018Äê6ÔÂ24ÈÕ
+ *      Author: 15645
+ */
+
+#ifndef CIPCS_H_
+#define CIPCS_H_
+
+class CIpcs {
+public:
+	CIpcs();
+	virtual ~CIpcs();
+};
+
+#endif /* CIPCS_H_ */
