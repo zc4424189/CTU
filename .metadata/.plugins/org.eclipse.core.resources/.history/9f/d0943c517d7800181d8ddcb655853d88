@@ -37,7 +37,6 @@ int CIpcs::CreatShareMemory(int type,int memorylength,int creatflag)
 			SHM_PATH = UP_PATH;
 			break;
 		case DOWN_TYPE:
-			SHM_PATH = DOWN_PATH;
 			break;
 	}
 	shm_key=ftok(SHM_PATH,1);
