@@ -1,0 +1,32 @@
+/*
+ * CIpcs.h
+ *
+ *  Created on: 2018Äê6ÔÂ24ÈÕ
+ *      Author: 15645
+ */
+
+#ifndef CIPCS_H_
+#define CIPCS_H_
+#define YX_TYPE         1
+#define YC_TYPE         2
+#define YM_TYPE         3
+#define SOE_TYPE        4
+#define MSG_TYPE        5
+#define PARA_TYPE       6
+#define MANAGEMSG_TYPE  7
+#define DEBUGMSG_TYPE   8
+#include "includs.h"
+
+class CIpcs {
+
+public:
+
+	CIpcs();
+	virtual ~CIpcs();
+	void myfun();
+private:
+	int ipcsid;
+
+};
+
+#endif /* CIPCS_H_ */

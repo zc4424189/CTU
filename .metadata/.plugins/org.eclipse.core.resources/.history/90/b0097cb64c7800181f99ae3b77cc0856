@@ -1,0 +1,48 @@
+/*
+ * CIpcs.h
+ *
+ *  Created on: 2018Äê6ÔÂ24ÈÕ
+ *      Author: 15645
+ */
+
+#ifndef CIPCS_H_
+#define CIPCS_H_
+#define UP_TYPE         1
+#define DOWN_TYPE       2
+#define MSG_TYPE        5
+#define PARA_TYPE       6
+#define MANAGEMSG_TYPE  7
+#define DEBUGMSG_TYPE   8
+#include "includs.h"
+
+class CIpcs {
+
+public:
+
+	CIpcs();
+	virtual ~CIpcs();
+	void myfun();
+	struct
+	{
+
+	}
+private:
+	#define UP_TYPE         1
+	#define DOWN_TYPE       2
+	#define MSG_TYPE        5
+	#define PARA_TYPE       6
+	#define MANAGEMSG_TYPE  7
+	#define DEBUGMSG_TYPE   8
+	#define UP_PATH         "up_shm"
+	#define DOWN_PATH       "down_shm"
+	#define MSG_PATH        "msg_shm"
+	#define PARA_PATH       "para_shm"
+	#define MANAGEMSG_PATH  "managemsg_shm"
+	#define DEBUGMSG_PATH   "debugmsg_shm"
+	int ipcsid;
+	int CreatShareMemory(int type,int memorylength,int creatflag);
+
+
+};
+
+#endif /* CIPCS_H_ */

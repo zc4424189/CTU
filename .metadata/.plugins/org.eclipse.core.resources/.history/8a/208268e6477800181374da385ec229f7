@@ -1,0 +1,29 @@
+/*
+ * CIpcs.cpp
+ *
+ *  Created on: 2018Äê6ÔÂ24ÈÕ
+ *      Author: ZC
+ *  Illustration:ShareMemory Creat link and so on
+ */
+
+#include "CIpcs.h"
+
+CIpcs::CIpcs() {
+	// TODO Auto-generated constructor stub
+
+}
+
+CIpcs::~CIpcs() {
+	// TODO Auto-generated destructor stub
+}
+
+void CIpcs::myfun()
+{
+	std::cout << "just a fun test" << std::endl;
+}
+
+int CIpcs::CreatShareMemory(int type,int memorylength,int creatflag)
+{
+
+	return -1;
+}

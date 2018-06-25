@@ -1,0 +1,21 @@
+/*
+ * CIpcs.cpp
+ *
+ *  Created on: 2018Äê6ÔÂ24ÈÕ
+ *      Author: 15645
+ */
+
+#include "CIpcs.h"
+
+CIpcs::CIpcs() {
+	// TODO Auto-generated constructor stub
+
+}
+
+CIpcs::~CIpcs() {
+	// TODO Auto-generated destructor stub
+}
+
+void CIpcs::myfun(){
+
+}

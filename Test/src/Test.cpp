@@ -1,0 +1,21 @@
+//============================================================================
+// Name        : Test.cpp
+// Author      : 
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+using namespace std;
+#include "../CIpcs.h"
+#include "../CLogs.h"
+int main() {
+	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+	class CIpcs ipcs;
+	ipcs.myfun();
+	class CLogs log;
+	log.LogMessage("²âÊÔÐÅÏ¢",NOTICE);
+	ipcs.CreatShareMemory(UP_TYPE,sizeof(int),0);
+	return 0;
+}

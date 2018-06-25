@@ -1,0 +1,38 @@
+/*
+ * CLogs.cpp
+ *
+ *  Created on: 2018年6月25日
+ *      Author: 15645
+ */
+
+#include "CLogs.h"
+
+CLogs::CLogs() {
+	// TODO Auto-generated constructor stub
+
+}
+
+CLogs::~CLogs() {
+	// TODO Auto-generated destructor stub
+}
+int CLogs::GetTime()
+{
+	time_t timer;//time_t就是long int 类型
+	struct tm *tblock;
+	timer = time(NULL);
+	tblock = localtime(&timer);
+	Strnowtime = asctime(tblock);
+	return 0;
+}
+
+std::string CLogs::AssembleMessage(int AlarmClass)
+{
+	std::string StrFinalMsg;
+	struct tm *tblock;
+	timer = time(NULL);
+	tblock = localtime(&timer);
+	Strnowtime = asctime(tblock);
+	return 0;
+}
+
+

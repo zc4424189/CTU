@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;ctu/common&apos; to &apos;common.h&apos;" description="Rename resource &apos;common&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="common" name="common.h" stamp="1529915327950" updateReferences="true"/>
+</session>

@@ -1,0 +1,20 @@
+/*
+ * CLogs.h
+ *
+ *  Created on: 2018Äê6ÔÂ25ÈÕ
+ *      Author: 15645
+ */
+
+#ifndef CLOGS_H_
+#define CLOGS_H_
+#include "includs.h"
+class CLogs {
+
+public:
+	CLogs();
+	virtual ~CLogs();
+private:
+
+};
+
+#endif /* CLOGS_H_ */

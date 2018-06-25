@@ -1,0 +1,33 @@
+/*
+ * CLogs.h
+ *
+ *  Created on: 2018Äê6ÔÂ25ÈÕ
+ *      Author: 15645
+ */
+
+#ifndef CLOGS_H_
+#define CLOGS_H_
+#include "includs.h"
+
+enum LOGLEVEL
+{
+      ERROR,
+      NOTICE,
+      WARN,
+      INFO
+};
+class CLogs {
+
+public:
+	CLogs();
+	virtual ~CLogs();
+
+private:
+	std::string Strnowtime;
+	std::string Strmessage;
+	int Intlevel;
+	int GetTime();
+	std::string AssembleMessage();
+};
+
+#endif /* CLOGS_H_ */
