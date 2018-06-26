@@ -1,1 +1,4 @@
-Info: Nothing to build for Test
+13:47:40 **** Incremental Build of configuration Debug for project Test ****
+Info: Internal Builder is used for build
+arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Test.o" "..\\src\\Test.cpp" 
+arm-none-linux-gnueabi-g++ "-LD:\\public\\CTU\\ctu\\Debug" -o Test "src\\Test.o" -lctu 

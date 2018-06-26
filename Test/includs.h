@@ -15,6 +15,7 @@
 #include <sys/ipc.h>
 #include <errno.h>
 #include "CLogs.h"
+#include "CIpcs.h"
 #include "common.h"
 
 #endif /* INCLUDS_H_ */

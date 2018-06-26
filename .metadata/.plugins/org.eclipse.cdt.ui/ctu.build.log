@@ -1,9 +1,10 @@
-16:40:09 **** Incremental Build of configuration Debug for project ctu ****
+13:32:31 **** Incremental Build of configuration Debug for project ctu ****
 Info: Internal Builder is used for build
 arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o CIpcs.o "..\\CIpcs.cpp" 
-..\CIpcs.cpp: In member function 'int CIpcs::CreatShareMemory(int, int, int)':
-..\CIpcs.cpp:37: warning: deprecated conversion from string constant to 'char*'
+..\CIpcs.cpp: In member function 'int CIpcs::CreatShareMemory(int, int)':
+..\CIpcs.cpp:35: warning: deprecated conversion from string constant to 'char*'
+..\CIpcs.cpp:39: warning: deprecated conversion from string constant to 'char*'
 arm-none-linux-gnueabi-ar -r libctu.a CLogs.o CIpcs.o 
 
-16:40:10 Build Finished (took 411ms)
+13:32:31 Build Finished (took 352ms)
 

@@ -1,0 +1,63 @@
+/*
+ * CIpcs.cpp
+ *
+ *  Created on: 2018年6月24日
+ *      Author: ZC
+ *  Illustration:ShareMemory Creat link and so on
+ */
+
+#include "CIpcs.h"
+
+CIpcs::CIpcs() {
+	// TODO Auto-generated constructor stub
+
+}
+
+CIpcs::~CIpcs() {
+	// TODO Auto-generated destructor stub
+}
+
+void CIpcs::myfun()
+{
+	std::cout << "just a fun test" << std::endl;
+}
+
+int CIpcs::CreatShareMemory(int type,int memorylength,int creatflag)
+{
+	int shmid;
+	key_t shm_key;
+	if(Bool_Created)
+	{
+		return -1;
+	}
+	char *SHM_PATH=NULL;
+	switch(type)
+	{
+		case UP_TYPE:
+			SHM_PATH = UP_PATH;
+			break;
+		case DOWN_TYPE:
+			break;
+	}
+	shm_key=ftok(SHM_PATH,1);
+	std::cout << "shm_key = "<< shm_key << std::endl;
+    if(shm_key==-1)
+    {
+    	log.LogMessage("创建shm_key出错",ERROR);
+        return -1;
+    }
+    if(creatflag==1)
+    {
+    	shmid=shmget(shm_key,memorylength,PERMS|IPC_EXCL|IPC_CREAT);
+    }
+    else
+    {
+        shmid=shmget(shm_key,memorylength,PERMS);
+    }
+    if((shmid==-1)&&(errno!=EEXIST))
+    {
+        log.LogMessage("创建共享内存出错"+errno,ERROR);
+        return -1;
+    }
+    return shmid;
+}

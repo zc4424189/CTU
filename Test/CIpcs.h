@@ -13,6 +13,7 @@
 #define PARA_TYPE       6
 #define MANAGEMSG_TYPE  7
 #define DEBUGMSG_TYPE   8
+#define MAXBUFF  2048
 #include "includs.h"
 typedef struct
 {
@@ -45,7 +46,7 @@ public:
 	CIpcs();
 	virtual ~CIpcs();
 	void myfun();
-	int CreatShareMemory(int type,int memorylength,int creatflag);
+	int CreatShareMemory(int type,int creatflag);
 private:
 	#define UP_TYPE         1
 	#define DOWN_TYPE       2

@@ -22,28 +22,33 @@ void CIpcs::myfun()
 	std::cout << "just a fun test" << std::endl;
 }
 
-int CIpcs::CreatShareMemory(int type,int memorylength,int creatflag)
+int CIpcs::CreatShareMemory(int type,int creatflag)
 {
 	int shmid;
+	int memorylength;
 	key_t shm_key;
-	if(Bool_Created)
-	{
-		return -1;
-	}
 	char *SHM_PATH=NULL;
+	memorylength=0;
 	switch(type)
 	{
 		case UP_TYPE:
 			SHM_PATH = UP_PATH;
+			memorylength = sizeof(StructMessageBuff)*MAXBUFF;
 			break;
 		case DOWN_TYPE:
+			SHM_PATH = DOWN_PATH;
+			memorylength = sizeof(StructMessageBuff)*MAXBUFF;
 			break;
 	}
 	shm_key=ftok(SHM_PATH,1);
     if(shm_key==-1)
     {
-    	log.LogMessage("创建shm_key出错",ERROR);
+    	log.LogMessage("创建shm_key出错"+shm_key,ERROR);
         return -1;
+    }
+    if(0==memorylength)
+    {
+    	return -1;
     }
     if(creatflag==1)
     {
@@ -53,6 +58,7 @@ int CIpcs::CreatShareMemory(int type,int memorylength,int creatflag)
     {
         shmid=shmget(shm_key,memorylength,PERMS);
     }
+
     if((shmid==-1)&&(errno!=EEXIST))
     {
         log.LogMessage("创建共享内存出错"+errno,ERROR);

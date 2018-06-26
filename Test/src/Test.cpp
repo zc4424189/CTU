@@ -8,14 +8,13 @@
 
 #include <iostream>
 using namespace std;
-#include "../CIpcs.h"
-#include "../CLogs.h"
+//#include "../CIpcs.h"
+#include "../includs.h"
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
 	class CIpcs ipcs;
-	ipcs.myfun();
 	class CLogs log;
-	log.LogMessage("测试信息",NOTICE);
-	ipcs.CreatShareMemory(UP_TYPE,sizeof(int),0);
+	ipcs.CreatShareMemory(UP_TYPE,1);
+	ipcs.CreatShareMemory(DOWN_TYPE,1);
+	cout << "这是测试信息111" << endl;
 	return 0;
 }
