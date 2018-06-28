@@ -1,0 +1,9 @@
+#define PERMS 0777
+#define TCPCLIENT_MAX_NUM 8
+#define BUFFSIZE 2048
+typedef struct SendBuff
+{
+	unsigned char buff[2048];
+	int in;
+	int out;
+};

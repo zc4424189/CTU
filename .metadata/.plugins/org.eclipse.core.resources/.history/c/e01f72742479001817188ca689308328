@@ -1,0 +1,73 @@
+/**
+ * @internal
+ * @file TcpClientManager.h
+ */
+#include "includs.h"
+#include "common.h"
+#ifndef _TCPCLIENTMANAGER_H
+#define _TCPCLIENTMANAGER_H
+
+#define TCPCLIENT_MAX_NUM	8
+#define BUFFSIZE 2048
+enum  CONNSTATE { csWAIT, csINIT, csCLOSED, csOPEN };
+
+
+typedef struct _TCPCLIENT_INFO
+{
+	int					nIdx;
+	CONNSTATE			ConnState;
+	char				HostIP[16];
+	int					HostPort;
+	char				AdptName[64];
+	void*				pTCPClient;
+	int					m_ExitFlag;
+}TCPCLIENT_INFO, *PTCPCLIENT_INFO;
+
+
+
+/*****************************************************************************
+ * TcpClientManager class declaration
+ *****************************************************************************/
+
+/**
+ * TCP Client Manager class
+ *
+ * This class provides
+ * functions to establish and to close a TCP/IP connection to the deviec 
+ * It is also possible to instantiate multiple instances of this class for
+ * establishing multiple connections to either the same or different hosts.
+ *
+ */
+class CTCPClientManager
+{
+
+private:
+	// TCPClient连接管理线程
+	static int TCPClientThreadFunc( void* lparam );
+public:
+	TCPCLIENT_INFO	        m_TCPClientInfo[TCPCLIENT_MAX_NUM];
+	pthread_t				m_thread[TCPCLIENT_MAX_NUM];
+	int						m_nTCPClientNum;
+	struct SendBuff 		StructSendBuff[TCPCLIENT_MAX_NUM];
+	char 					CharRendBuff[TCPCLIENT_MAX_NUM];
+public:
+	CTCPClientManager( );
+	~CTCPClientManager();
+
+	//添加TCP客户端连接对象，输入参数为TCP服务器的IP和端口
+	int AddTCPClientObject( char* pHostIP, int nHostPort );
+	//删除所有TCP客户端连接对象
+	int DeleteAllTCPClient( );
+
+	//设置TCP客户端连接对象为csINIT状态
+	int Open( int Idx );
+	//获取TCP客户端连接状态
+	int	GetTCPClientState( int Idx );
+
+	//启动TCPClient连接管理操作，并创建TCPClient连接管理线程
+	int Start( );
+	//关闭TCPClient连接管理操作
+	int Stop( );
+};
+
+#endif // ifdef

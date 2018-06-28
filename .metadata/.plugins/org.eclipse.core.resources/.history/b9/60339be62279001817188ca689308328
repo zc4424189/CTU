@@ -1,0 +1,8 @@
+#define PERMS 0777
+#define BUFFSIZE 2048;
+struct
+{
+	unsigned char buff[BUFFSIZE];
+	int in;
+	int out;
+}SendBuff;

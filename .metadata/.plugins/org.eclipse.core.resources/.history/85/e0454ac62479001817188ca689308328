@@ -1,0 +1,6 @@
+#define PERMS 0777
+#define TCPCLIENT_MAX_NUM 8
+#define BUFFSIZE 2048
+
+
+

@@ -1,0 +1,44 @@
+//============================================================================
+// Name        : Test.cpp
+// Author      : 
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+using namespace std;
+#include "../CIpcs.h"
+#include "../TCPClient.h"
+#include "../TcpClientManager.h"
+#include "../includs.h"
+int main() {
+	class CIpcs ipcs;
+	class CLogs log;
+	ipcs.CreatShareMemory(UP_TYPE,1);
+	ipcs.CreatShareMemory(DOWN_TYPE,1);
+	cout << "这是测试信息111" << endl;
+	class CTCPClientManager tmanger;
+	tmanger.AddTCPClientObject("192.168.10.233",4991);
+	tmanger.AddTCPClientObject("192.168.10.233",4992);
+	tmanger.AddTCPClientObject("192.168.10.233",4993);
+	cout <<"现有链接总数为:" << tmanger.m_nTCPClientNum <<endl;
+	tmanger.Start();
+	tmanger.Open(0);
+	tmanger.Open(1);
+	tmanger.Open(2);
+	while(true)
+	{
+
+		for(int i=0;i<3;i++)
+		{
+			if(tmanger.GetTCPClientState(i)==0)
+			{
+				tmanger.Open(i);
+			}
+		}
+
+		sleep(1);
+	}
+	return 0;
+}

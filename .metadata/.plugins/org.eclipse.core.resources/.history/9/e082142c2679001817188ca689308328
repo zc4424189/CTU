@@ -1,0 +1,246 @@
+/**
+ * @internal
+ * @file CTCPClientManager.cpp
+ *
+ * @endif
+ */
+
+
+#include "TCPClient.h"
+#include "TCPClientManager.h"
+
+class CTCPClient g_TCPClnt[TCPCLIENT_MAX_NUM];
+
+/*****************************************************************************
+ * CTCPClientManager class implementation
+ *****************************************************************************/
+
+/**
+ * Constructs a CTCPClientManager object and initialises its data.
+ */
+CTCPClientManager::CTCPClientManager( )
+{
+	m_nTCPClientNum = 0;
+}
+
+CTCPClientManager::~CTCPClientManager( )
+{
+
+}
+
+int CTCPClientManager::AddTCPClientObject( char *pHostIP, int nHostPort )
+{
+	//CTCPClient*  pTCPClnt;
+
+	if( m_nTCPClientNum >= TCPCLIENT_MAX_NUM )
+		return 0;
+
+	strcpy( m_TCPClientInfo[m_nTCPClientNum].HostIP, pHostIP );
+	m_TCPClientInfo[m_nTCPClientNum].HostPort = nHostPort;
+	m_TCPClientInfo[m_nTCPClientNum].nIdx = m_nTCPClientNum;
+	m_TCPClientInfo[m_nTCPClientNum].ConnState = csWAIT;
+	//pTCPClnt = new class CTCPClient;
+	//m_TCPClientInfo[m_nTCPClientNum].pTCPClient = (void*)pTCPClnt;
+	m_TCPClientInfo[m_nTCPClientNum].pTCPClient = (void*)&g_TCPClnt[m_nTCPClientNum];
+	m_TCPClientInfo[m_nTCPClientNum].m_ExitFlag = 0;
+
+	m_nTCPClientNum++;	
+	return 1;
+}
+
+
+int CTCPClientManager::DeleteAllTCPClient( )
+{
+	//int 			i1;
+	//CTCPClient*  	pTCPClnt;
+
+	if( m_nTCPClientNum == 0 )
+		return 0;
+	/*
+	for( i1=0; i1<m_nTCPClientNum; i1++ )
+	{
+		pTCPClnt = (CTCPClient*)m_TCPClientInfo[i1].pTCPClient;
+		if( pTCPClnt )
+			delete pTCPClnt;
+		m_TCPClientInfo[i1].pTCPClient = NULL;
+	}
+	*/
+
+	m_nTCPClientNum = 0;
+	return 1;
+}
+
+int CTCPClientManager::Start( )
+{
+	int					res, i1;
+	pthread_attr_t 		attr;
+
+	res = pthread_attr_init(&attr);
+	if( res!=0 )
+	{
+		printf("Create attribute failed\n" );
+	}
+	// 设置线程绑定属性
+	res = pthread_attr_setscope( &attr, PTHREAD_SCOPE_SYSTEM );
+	// 设置线程分离属性
+	res += pthread_attr_setdetachstate( &attr, PTHREAD_CREATE_DETACHED );
+	if( res!=0 )
+	{
+		printf( "Setting attribute failed\n" );
+		return -1;
+	}
+
+	// create TCPClient Thread
+	for( i1=0; i1<m_nTCPClientNum; i1++ )
+	{
+		res = pthread_create( &m_thread[i1], &attr, (void *(*) (void *))&TCPClientThreadFunc, (void*)&m_TCPClientInfo[i1] );
+		if( res!=0 )
+		{
+			pthread_attr_destroy( &attr );
+			return -1;
+		}
+	}
+
+	pthread_attr_destroy( &attr );
+	return 0;
+}
+
+int CTCPClientManager::Stop( )
+{
+	int		i1;
+
+	for( i1=0; i1<m_nTCPClientNum; i1++ )
+	{
+		m_TCPClientInfo[i1].m_ExitFlag = 1;
+	}
+
+	return 0;
+}
+
+
+int CTCPClientManager::Open( int Idx )
+{
+	if( Idx>= m_nTCPClientNum )
+		return -1;
+	if( m_TCPClientInfo[Idx].ConnState!=csWAIT )
+		return -1;
+
+	m_TCPClientInfo[Idx].ConnState = csINIT;
+
+	return 0;
+}
+
+int	CTCPClientManager::GetTCPClientState( int Idx )
+{
+	if(Idx >= m_nTCPClientNum )
+		return -1;
+	return (int)m_TCPClientInfo[Idx].ConnState;
+}
+
+
+int CTCPClientManager::TCPClientThreadFunc( void* lparam )
+{
+	PTCPCLIENT_INFO		pTCPClntInfo = (PTCPCLIENT_INFO)lparam;
+	CTCPClient*      	pTCPClnt;
+	int                 ConnectNum=0, TimeCnt=0;
+	char                Buf[2560];
+	int                 len;
+
+	//定义读事件集合
+	fd_set 				fdRead;
+	int 				ret;
+	//定义事件等待时间
+	struct timeval		aTime;
+
+	pTCPClnt = (CTCPClient*)pTCPClntInfo->pTCPClient;
+	
+	for( ; ; )
+	{
+		if(  pTCPClntInfo->m_ExitFlag )
+		{
+			pTCPClntInfo->m_ExitFlag = 0;
+			if( pTCPClntInfo->ConnState > csINIT )
+			{
+				pTCPClnt->Close( );
+			}
+			break;
+		}
+
+		if( pTCPClntInfo->ConnState == csWAIT )
+		{
+			sleep( 1 );
+			continue;
+		}
+
+		aTime.tv_sec = 0;
+		aTime.tv_usec = 100000;      // for wait 100ms
+		//置空fdRead事件为空
+		FD_ZERO( &fdRead );
+		//设置读事件
+		FD_SET( 0,&fdRead );
+		//调用select函数，判断是否有读事件发生
+		ret = select( 0,&fdRead,NULL,NULL,&aTime );
+
+		switch( pTCPClntInfo->ConnState )
+		{
+		case csWAIT:
+			pTCPClntInfo->ConnState = csINIT;
+			break;
+		case csINIT:							                 //  Open TCP Client Connect
+			pTCPClnt->Open( pTCPClntInfo->HostIP, pTCPClntInfo->HostPort  );
+			pTCPClntInfo->ConnState = csCLOSED;
+			printf( "TCPClnt Connect...\n" );
+			ConnectNum = 0;
+			break;
+		case csCLOSED:								           // wait for TCP connection establish...
+			if( pTCPClnt->Connect( ) )
+			{
+				pTCPClntInfo->ConnState = csOPEN;
+				printf( "TCPClnt Opened\n" );
+				ConnectNum = 0;
+				TimeCnt = 0;
+			}
+			else
+			{
+				ConnectNum++;			
+			}
+			if( ConnectNum > 0 )
+			{
+				pTCPClnt->Close(  );
+				pTCPClntInfo->ConnState = csWAIT;
+			}
+			break;
+		case csOPEN:							  // TCP connection is established
+			if( pTCPClnt->m_sockclose )
+			{
+				pTCPClntInfo->ConnState = csWAIT;
+			}
+			TimeCnt++;
+			//定时发送数据，每次计数间隔为100ms
+			if( TimeCnt >= 10 )       // for 3 seconds
+			{
+				TimeCnt = 0;
+				// 发送数据
+				strcpy( Buf, "TCPClient Test v1.0" );
+				len = strlen(Buf);
+				len = pTCPClnt->SendData( Buf, 1000 );
+				if( len<0 )
+				{
+					printf( "SendData failed!\n");
+					pTCPClnt->Close(  );
+					pTCPClntInfo->ConnState = csWAIT;
+				}
+			}
+			break;
+		}
+	}
+
+	printf( "TCPClientThreadFun finished\n");
+	pthread_exit( NULL );
+	return 0;
+}
+int SendCharsToSendBuff(unsigned char *p)
+{
+	strcpy()
+	return -1;
+}

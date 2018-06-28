@@ -37,10 +37,7 @@ int CIpcs::CreatShareMemory(int type,int creatflag)
 			break;
 		case DOWN_TYPE:
 			SHM_PATH = DOWN_PATH;
-<<<<<<< HEAD
 			memorylength = sizeof(StructMessageBuff)*MAXBUFF;
-=======
->>>>>>> origin/master
 			break;
 	}
 	shm_key=ftok(SHM_PATH,1);
