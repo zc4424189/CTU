@@ -26,10 +26,6 @@
 #define DOT_TYPE_YX 1
 #define DOT_TYPE_YC 2
 #define DOT_TYPE_YM 3
-#define COMMONADDR 255
-#define COMMONADDR1 65535
-
-#define MAXAPDULEN 253
 //T1发送方发送一个I格式报文或U格式报文后，必须在t1的时间内得到接收方的认可,否则主动关闭连接
 //T2在接收到I格式报文后，若经过t2时间未再收到新的I格式报文，则必须向发送方发送S格式帧,对已经接收到的I格式报文进行认可，显然t2必须小于t1。
 //T3子站RTU端每接收一帧I帧、S帧或者U帧将重新触发计时器t3，若在t3内未接收到任何报文，将向对方发送测试链路帧TESTFR
@@ -152,16 +148,8 @@ typedef struct CP56TIME2A {
 	BYTE  ByteMilliSec ;   //毫秒
 };
 
-typedef struct VSQ{//可变结构限定词
-	BYTE ByteNumber:7;//数量
-	BYTE ByteSQ:1;//单个或者顺序
-};
-
-typedef struct COT{//传输原因
-	BYTE ByteNumber:6;
-	BYTE BytePN:1;
-	BYTE ByteT:1;
-	BYTE ByteSourceAddr:8;
+typedef struct VSQ{
+	BYTE
 };
 
 typedef struct IEC104_SIQ //带品质描述词的单点信息
@@ -184,51 +172,47 @@ typedef struct IEC104_DIQ //带品质描述词的单点信息
 	BYTE ByteIV :1; // valid/invalid
 };
 
-
-typedef struct IEC104_SCO
+typedef struct IEC104_QDS
 {
-    BYTE ByteSCS :1;
-    BYTE ByteBS1 :1;
-    BYTE QOC :6; // blocked/not blocked
-
+    unsigned char var :2;
+    unsigned char res :2;
+    unsigned char bl :1; // blocked/not blocked
+    unsigned char sb :1; // substituted/not substituted
+    unsigned char nt :1; // not topical/topical
+    unsigned char iv :1; // valid/invalid
 };
-
-typedef struct IEC104_ASDU
+typedef struct _EXTRACTFRM_INFO
 {
-	BYTE ByteType ;    //帧类型 三种 U /I /S
-	VSQ  ByteSQNum ;      //可变结构限定词
-	COT ByteTranCot ;    //传输原因  对应COT104
-    BYTE  ByteAPDUaddr[3] ;   //APDU地址
+	BYTE ByteFrmType ;    //帧类型 三种 U /I /S
+	BYTE ByteTranType ;   //传输类型  对应STI104 MTI104 和U格式的6种类型
+	short ByteTranCot ;    //传输原因  对应COT104
+	short ByteRevS ;       //接收序号
+	short ByteSendS ;      //发送序号
+	BYTE  ByteVar   ;      //保留，做结构对齐用的
+	BYTE  ByteSQNum ;      //可变结构限定词
+    short  ByteAPDUaddr ;   //APDU地址
     BYTE* pinfo   ;      //信息体信息
 
-};
+}EXTRACTFRM_INFO;
 
 //从站信息体结构 定义开始
 
 
 //主站信息体结构 定义结束
-typedef struct IEC104_APCI
+typedef struct _APCI_104
 {
-	BYTE ByteHead;      //0x68
-	BYTE ByteAPDUlen;   //APDU的长度 最大长度为253
-	BYTE ByteCtlArr1;   //控制域8位位组1
-	BYTE ByteCtlArr2;   //控制域8位位组2
-	BYTE ByteCtlArr3;   //控制域8位位组3
-	BYTE ByteCtlArr4;   //控制域8位位组4
+	BYTE bHead ;      //0x68
+	BYTE bAPDUlen ;   //APDU的长度 最大长度为253
+	BYTE bCtlArr1 ;   //控制域8位位组1
+	BYTE bCtlArr2 ;   //控制域8位位组2
+	BYTE bCtlArr3 ;   //控制域8位位组3
+	BYTE bCtlArr4 ;   //控制域8位位组4
 
-};
-
-typedef struct IEC104_APDU
-{
-	IEC104_APCI APCI;
-	IEC104_ASDU ASDU;
-}
-
+}APCI_104;
 class IEC104 {
 public:
 	IEC104();
 	virtual ~IEC104();
-	IEC104_APDU IEC104APDU;
 };
 
 #endif /* IEC104_H_ */

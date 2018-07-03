@@ -228,7 +228,6 @@ class IEC104 {
 public:
 	IEC104();
 	virtual ~IEC104();
-	IEC104_APDU IEC104APDU;
 };
 
 #endif /* IEC104_H_ */

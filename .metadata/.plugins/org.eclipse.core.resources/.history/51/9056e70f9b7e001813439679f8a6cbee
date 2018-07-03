@@ -207,7 +207,7 @@ typedef struct IEC104_ASDU
 
 
 //主站信息体结构 定义结束
-typedef struct IEC104_APCI
+typedef struct _APCI_104
 {
 	BYTE ByteHead;      //0x68
 	BYTE ByteAPDUlen;   //APDU的长度 最大长度为253
@@ -216,19 +216,11 @@ typedef struct IEC104_APCI
 	BYTE ByteCtlArr3;   //控制域8位位组3
 	BYTE ByteCtlArr4;   //控制域8位位组4
 
-};
-
-typedef struct IEC104_APDU
-{
-	IEC104_APCI APCI;
-	IEC104_ASDU ASDU;
-}
-
+}APCI_104;
 class IEC104 {
 public:
 	IEC104();
 	virtual ~IEC104();
-	IEC104_APDU IEC104APDU;
 };
 
 #endif /* IEC104_H_ */

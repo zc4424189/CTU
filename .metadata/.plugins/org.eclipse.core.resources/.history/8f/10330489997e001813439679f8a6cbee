@@ -198,7 +198,7 @@ typedef struct IEC104_ASDU
 	BYTE ByteType ;    //帧类型 三种 U /I /S
 	VSQ  ByteSQNum ;      //可变结构限定词
 	COT ByteTranCot ;    //传输原因  对应COT104
-    BYTE  ByteAPDUaddr[3] ;   //APDU地址
+    unsigned char  ByteAPDUaddr ;   //APDU地址
     BYTE* pinfo   ;      //信息体信息
 
 };
@@ -207,28 +207,20 @@ typedef struct IEC104_ASDU
 
 
 //主站信息体结构 定义结束
-typedef struct IEC104_APCI
+typedef struct _APCI_104
 {
-	BYTE ByteHead;      //0x68
-	BYTE ByteAPDUlen;   //APDU的长度 最大长度为253
-	BYTE ByteCtlArr1;   //控制域8位位组1
-	BYTE ByteCtlArr2;   //控制域8位位组2
-	BYTE ByteCtlArr3;   //控制域8位位组3
-	BYTE ByteCtlArr4;   //控制域8位位组4
+	BYTE bHead ;      //0x68
+	BYTE bAPDUlen ;   //APDU的长度 最大长度为253
+	BYTE bCtlArr1 ;   //控制域8位位组1
+	BYTE bCtlArr2 ;   //控制域8位位组2
+	BYTE bCtlArr3 ;   //控制域8位位组3
+	BYTE bCtlArr4 ;   //控制域8位位组4
 
-};
-
-typedef struct IEC104_APDU
-{
-	IEC104_APCI APCI;
-	IEC104_ASDU ASDU;
-}
-
+}APCI_104;
 class IEC104 {
 public:
 	IEC104();
 	virtual ~IEC104();
-	IEC104_APDU IEC104APDU;
 };
 
 #endif /* IEC104_H_ */

@@ -1,18 +1,112 @@
-11:49:52 **** Incremental Build of configuration Debug for project ctu ****
+16:02:40 **** Incremental Build of configuration Debug for project ctu ****
 Info: Internal Builder is used for build
-arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o IEC104.o "..\\IEC104.cpp" 
+arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o TcpClientManager.o "..\\TcpClientManager.cpp" 
+In file included from ..\/includs.h:39,
+                 from ..\/TCPClient.h:4,
+                 from ..\TcpClientManager.cpp:9:
+..\/IEC104.h:30: warning: "COMMONADDR" redefined
+..\/IEC104.h:29: note: this is the location of the previous definition
+In file included from ..\/includs.h:39,
+                 from ..\/TCPClient.h:4,
+                 from ..\TcpClientManager.cpp:9:
+..\/IEC104.h:151: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:156: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:163: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:173: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:183: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:193: warning: 'typedef' was ignored in this declaration
+arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o CLogs.o "..\\CLogs.cpp" 
+In file included from ..\/includs.h:39,
+                 from ..\/CLogs.h:10,
+                 from ..\CLogs.cpp:8:
+..\/IEC104.h:30: warning: "COMMONADDR" redefined
+..\/IEC104.h:29: note: this is the location of the previous definition
+In file included from ..\/includs.h:39,
+                 from ..\/CLogs.h:10,
+                 from ..\CLogs.cpp:8:
+..\/IEC104.h:151: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:156: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:163: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:173: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:183: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:193: warning: 'typedef' was ignored in this declaration
+arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o TCPCustom.o "..\\TCPCustom.cpp" 
+In file included from ..\/includs.h:39,
+                 from ..\/TCPCustom.h:7,
+                 from ..\TCPCustom.cpp:6:
+..\/IEC104.h:30: warning: "COMMONADDR" redefined
+..\/IEC104.h:29: note: this is the location of the previous definition
+In file included from ..\/includs.h:39,
+                 from ..\/TCPCustom.h:7,
+                 from ..\TCPCustom.cpp:6:
+..\/IEC104.h:151: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:156: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:163: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:173: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:183: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:193: warning: 'typedef' was ignored in this declaration
+..\TCPCustom.cpp: In member function 'int CTCPCustom::RcveCharsFromRcveBuff(unsigned char*)':
+..\TCPCustom.cpp:295: warning: unused variable 'TxLen'
 arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o TCPClient.o "..\\TCPClient.cpp" 
+In file included from ..\/includs.h:39,
+                 from ..\/TCPClient.h:4,
+                 from ..\TCPClient.cpp:6:
+..\/IEC104.h:30: warning: "COMMONADDR" redefined
+..\/IEC104.h:29: note: this is the location of the previous definition
+In file included from ..\/includs.h:39,
+                 from ..\/TCPClient.h:4,
+                 from ..\TCPClient.cpp:6:
+..\/IEC104.h:151: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:156: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:163: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:173: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:183: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:193: warning: 'typedef' was ignored in this declaration
+arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o IEC104.o "..\\IEC104.cpp" 
+In file included from ..\IEC104.cpp:8:
+..\/IEC104.h:30: warning: "COMMONADDR" redefined
+..\/IEC104.h:29: note: this is the location of the previous definition
+In file included from ..\IEC104.cpp:8:
+..\/IEC104.h:151: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:156: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:163: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:173: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:183: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:193: warning: 'typedef' was ignored in this declaration
 arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o CIpcs.o "..\\CIpcs.cpp" 
+In file included from ..\/includs.h:39,
+                 from ..\/CIpcs.h:17,
+                 from ..\CIpcs.cpp:9:
+..\/IEC104.h:30: warning: "COMMONADDR" redefined
+..\/IEC104.h:29: note: this is the location of the previous definition
+In file included from ..\/includs.h:39,
+                 from ..\/CIpcs.h:17,
+                 from ..\CIpcs.cpp:9:
+..\/IEC104.h:151: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:156: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:163: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:173: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:183: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:193: warning: 'typedef' was ignored in this declaration
 ..\CIpcs.cpp: In member function 'int CIpcs::CreatShareMemory(int, int)':
 ..\CIpcs.cpp:35: warning: deprecated conversion from string constant to 'char*'
 ..\CIpcs.cpp:39: warning: deprecated conversion from string constant to 'char*'
-arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o TCPCustom.o "..\\TCPCustom.cpp" 
-..\TCPCustom.cpp: In member function 'int CTCPCustom::RcveCharsFromRcveBuff(unsigned char*)':
-..\TCPCustom.cpp:295: warning: unused variable 'TxLen'
-arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o TcpClientManager.o "..\\TcpClientManager.cpp" 
-arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o CLogs.o "..\\CLogs.cpp" 
 arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o TCPServer.o "..\\TCPServer.cpp" 
+In file included from ..\/includs.h:39,
+                 from ..\/TCPServer.h:8,
+                 from ..\TCPServer.cpp:6:
+..\/IEC104.h:30: warning: "COMMONADDR" redefined
+..\/IEC104.h:29: note: this is the location of the previous definition
+In file included from ..\/includs.h:39,
+                 from ..\/TCPServer.h:8,
+                 from ..\TCPServer.cpp:6:
+..\/IEC104.h:151: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:156: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:163: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:173: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:183: warning: 'typedef' was ignored in this declaration
+..\/IEC104.h:193: warning: 'typedef' was ignored in this declaration
 arm-none-linux-gnueabi-ar -r libctu.a TcpClientManager.o TCPServer.o TCPCustom.o TCPClient.o IEC104.o CLogs.o CIpcs.o 
 
-11:49:55 Build Finished (took 2s.821ms)
+16:02:43 Build Finished (took 2s.614ms)
 

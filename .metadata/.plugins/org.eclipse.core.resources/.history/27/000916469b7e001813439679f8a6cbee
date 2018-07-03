@@ -218,17 +218,12 @@ typedef struct IEC104_APCI
 
 };
 
-typedef struct IEC104_APDU
-{
-	IEC104_APCI APCI;
-	IEC104_ASDU ASDU;
-}
+typedef struct
 
 class IEC104 {
 public:
 	IEC104();
 	virtual ~IEC104();
-	IEC104_APDU IEC104APDU;
 };
 
 #endif /* IEC104_H_ */
