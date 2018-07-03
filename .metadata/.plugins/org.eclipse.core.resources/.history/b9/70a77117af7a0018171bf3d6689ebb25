@@ -1,0 +1,29 @@
+// TCPServer_CE.h: interface for the CTCPServer class.
+//
+//////////////////////////////////////////////////////////////////////
+
+#ifndef _TCPSERVER_H
+#define _TCPSERVER_H
+
+#include "includs.h"
+
+class CTCPServer
+{
+private:
+	pthread_t 	m_thread;      						//通讯线程标识符ID
+	//Socket侦听线程
+	 static int SocketListenThread( void*lparam );
+public:
+	int			m_sockfd;							//TCP服务监听socket
+	int			m_ExitThreadFlag;
+	int			m_LocalPort;						//设置服务端口号
+	CTCPServer();
+	virtual ~CTCPServer();
+	int Open();				    					//打开TCP服务
+	int Close();									//关闭TCP服务
+	// 删除一个客户端对象连接 释放资源
+	int RemoveClientSocketObject( void* lparam );
+	CTCPCustom* pClientSocket;
+};
+
+#endif

@@ -1,8 +1,15 @@
-14:31:54 **** Incremental Build of configuration Debug for project Test ****
+11:49:52 **** Incremental Build of configuration Debug for project ctu ****
 Info: Internal Builder is used for build
-arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Test.o" "..\\src\\Test.cpp" 
-..\src\Test.cpp: In function 'int main()':
-..\src\Test.cpp:22: warning: deprecated conversion from string constant to 'char*'
-..\src\Test.cpp:23: warning: deprecated conversion from string constant to 'char*'
-..\src\Test.cpp:24: warning: deprecated conversion from string constant to 'char*'
-arm-none-linux-gnueabi-g++ "-LD:\\public\\CTU\\ctu\\Debug" -o Test "src\\Test.o" -lctu -lpthread 
+arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o IEC104.o "..\\IEC104.cpp" 
+arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o TCPClient.o "..\\TCPClient.cpp" 
+arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o CIpcs.o "..\\CIpcs.cpp" 
+..\CIpcs.cpp: In member function 'int CIpcs::CreatShareMemory(int, int)':
+..\CIpcs.cpp:35: warning: deprecated conversion from string constant to 'char*'
+..\CIpcs.cpp:39: warning: deprecated conversion from string constant to 'char*'
+arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o TCPCustom.o "..\\TCPCustom.cpp" 
+..\TCPCustom.cpp: In member function 'int CTCPCustom::RcveCharsFromRcveBuff(unsigned char*)':
+..\TCPCustom.cpp:295: warning: unused variable 'TxLen'
+arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o TcpClientManager.o "..\\TcpClientManager.cpp" 
+arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o CLogs.o "..\\CLogs.cpp" 
+arm-none-linux-gnueabi-g++ -O0 -g3 -Wall -c -fmessage-length=0 -o TCPServer.o "..\\TCPServer.cpp" 
+arm-none-linux-gnueabi-ar -r libctu.a TcpClientManager.o TCPServer.o TCPCustom.o TCPClient.o IEC104.o CLogs.o CIpcs.o 

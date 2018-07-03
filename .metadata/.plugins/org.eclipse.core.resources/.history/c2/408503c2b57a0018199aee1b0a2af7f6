@@ -1,0 +1,151 @@
+//============================================================================
+// Name        : Test.cpp
+// Author      : 
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+using namespace std;
+
+#include "../includs.h"
+#include "../TCPServer.h"
+int main() {
+	/*class CIpcs ipcs;
+	class CLogs log;
+	ipcs.CreatShareMemory(UP_TYPE,1);
+	ipcs.CreatShareMemory(DOWN_TYPE,1);
+	cout << "这是测试信息111" << endl;
+	class CTCPClientManager tmanger;
+	tmanger.AddTCPClientObject("192.168.10.233",4991);
+	tmanger.AddTCPClientObject("192.168.10.233",4992);
+	tmanger.AddTCPClientObject("192.168.10.233",4993);
+	cout <<"现有链接总数为:" << tmanger.m_nTCPClientNum <<endl;
+	tmanger.Start();
+	tmanger.Open(0);
+	tmanger.Open(1);
+	tmanger.Open(2);*/
+	unsigned char ss[1024];
+	unsigned char rss[1024];
+	int i;
+	ss[0]='h';
+	ss[1]='e';
+	ss[2]='l';
+	ss[3]='l';
+	ss[4]='o';
+	class CTCPServer  m_TCPServer1;
+	class CTCPServer  m_TCPServer2;
+	m_TCPServer1.m_LocalPort = 1001;
+	m_TCPServer2.m_LocalPort = 1002;
+		// 创建Socket，启动TCP服务器侦听线程
+	if((m_TCPServer1.Open()<0)||(m_TCPServer2.Open()<0))
+		return -1;
+	while(true)
+	{
+		i=m_TCPServer1.pClientSocket->RcveCharsFromRcveBuff(ss);
+
+		m_TCPServer1.pClientSocket->SendCharsToSendBuff(ss,i);
+
+		i=m_TCPServer2.pClientSocket->RcveCharsFromRcveBuff(ss);
+
+		m_TCPServer2.pClientSocket->SendCharsToSendBuff(ss,i);
+/*		for(int i=0;i<3;i++)
+		{
+			if(tmanger.GetTCPClientState(i)==0)
+			{
+				tmanger.Open(i);
+
+			}
+			else if(csOPEN==tmanger.GetTCPClientState(i))
+			{
+				if(true)
+				{
+					tmanger.SendCharsToSendBuff(ss,i,5);
+					tmanger.RcveCharsFromRcveBuff(rss,i);
+				}
+			}
+		}*/
+
+		usleep(10000);
+
+
+	}
+	m_TCPServer1.Close( );
+	m_TCPServer2.Close();
+	return 0;
+}
+
+
+/*
+* ex04-mutex.c
+* 线程实例
+*/
+/*#include <stdio.h>
+#include <pthread.h>
+#include <sched.h>
+#include <unistd.h>
+
+void *producter_f (void *arg);
+void *consumer_f (void *arg);
+
+
+int buffer_has_item=0;
+pthread_mutex_t mutex;
+
+int running =1 ;
+
+int main (void)
+{
+
+    pthread_t consumer_t;
+    pthread_t producter_t;
+
+    pthread_mutex_init (&mutex,NULL);
+    pthread_create(&producter_t, NULL,producter_f, NULL );
+    pthread_create(&consumer_t, NULL,consumer_f, NULL);
+    usleep(1);
+    running =1;
+    pthread_join(consumer_t,NULL);
+    pthread_join(producter_t,NULL);
+    while(running)
+    {
+    	sleep(1);
+    	printf("app is running!\n");
+    }
+    pthread_mutex_destroy(&mutex);
+
+	int i=0;
+	for(i=0;i<3;i++)
+		;
+	printf("i=%d\n",i);
+    return 0;
+}
+
+void *producter_f (void *arg)
+{
+	printf("start producter\n");
+    while(running)
+    {
+        pthread_mutex_lock (&mutex);
+        usleep(5000000);
+        buffer_has_item++;
+        printf("生产，总数量:%d\n",buffer_has_item);
+        pthread_mutex_unlock(&mutex);
+    }
+}
+
+void *consumer_f(void *arg)
+{
+    while(running)
+    {
+    	usleep(1000000);
+    	printf("开始等你的信号！\n");
+        pthread_mutex_lock(&mutex);
+        printf("等到了！\n");
+        if(buffer_has_item>0)
+        	buffer_has_item--;
+        printf("总数量:%d\n",buffer_has_item);
+        pthread_mutex_unlock(&mutex);
+    }
+}*/

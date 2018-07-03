@@ -10,8 +10,7 @@
 #include "TCPClientManager.h"
 
 class CTCPClient g_TCPClnt[TCPCLIENT_MAX_NUM];
-struct  Buff StructSendBuff[TCPCLIENT_MAX_NUM];
-struct  Buff StructRcvBuff[TCPCLIENT_MAX_NUM];
+
 /*****************************************************************************
  * CTCPClientManager class implementation
  *****************************************************************************/
@@ -159,18 +158,18 @@ int CTCPClientManager::TCPClientThreadFunc( void* lparam )
 	{
 		usleep(100000);
 		i=0;
-		if(StructRcvBuff[pTCPClntInfo->nIdx].in==BUFFSIZE)//判断读出指针是否越界
+		if(pTCPClntInfo->StructRcvBuff.in==BUFFSIZE)//判断读出指针是否越界
 		{
-			StructRcvBuff[pTCPClntInfo->nIdx].in=0;
+			pTCPClntInfo->StructRcvBuff.in=0;
 		}
 		pthread_mutex_lock(&pTCPClnt->mutexRevcBuff);
 		while(pTCPClnt->RecvBuff[i]!='\0')
 		{
-			StructRcvBuff[pTCPClntInfo->nIdx].buff[StructRcvBuff[pTCPClntInfo->nIdx].in] =pTCPClnt->RecvBuff[i];
-			StructRcvBuff[pTCPClntInfo->nIdx].in++;
-			if(StructRcvBuff[pTCPClntInfo->nIdx].in==BUFFSIZE)
+			pTCPClntInfo->StructRcvBuff.buff[pTCPClntInfo->StructRcvBuff.in] =pTCPClnt->RecvBuff[i];
+			pTCPClntInfo->StructRcvBuff.in++;
+			if(pTCPClntInfo->StructRcvBuff.in==BUFFSIZE)
 			{
-				StructRcvBuff[pTCPClntInfo->nIdx].in=0;
+				pTCPClntInfo->StructRcvBuff.in=0;
 			}
 		}
 		pthread_mutex_unlock(&pTCPClnt->mutexRevcBuff);
@@ -244,22 +243,22 @@ int CTCPClientManager::TCPClientThreadFunc( void* lparam )
 				{
 					len = -1;
 				}
-				pthread_mutex_lock(&StructSendBuff[pTCPClntInfo->nIdx].mutex);//锁互斥锁
-				if(StructSendBuff[pTCPClntInfo->nIdx].out==BUFFSIZE)//判断读出指针是否越界
+				pthread_mutex_lock(&pTCPClntInfo->StructSendBuff.mutex);//锁互斥锁
+				if(pTCPClntInfo->StructSendBuff.out==BUFFSIZE)//判断读出指针是否越界
 				{
-					StructSendBuff[pTCPClntInfo->nIdx].out=0;
+					pTCPClntInfo->StructSendBuff.out=0;
 				}
-				while(StructSendBuff[pTCPClntInfo->nIdx].in!=StructSendBuff[pTCPClntInfo->nIdx].out)
+				while(pTCPClntInfo->StructSendBuff.in!=pTCPClntInfo->StructSendBuff.out)
 				{
-					Buf[i]=StructSendBuff[pTCPClntInfo->nIdx].buff[StructSendBuff[pTCPClntInfo->nIdx].out];
-					StructSendBuff[pTCPClntInfo->nIdx].out++;
+					Buf[i]=pTCPClntInfo->StructSendBuff.buff[pTCPClntInfo->StructSendBuff.out];
+					pTCPClntInfo->StructSendBuff.out++;
 					i++;
-					if(StructSendBuff[pTCPClntInfo->nIdx].out==BUFFSIZE)//判断读出指针是否越界
+					if(pTCPClntInfo->StructSendBuff.out==BUFFSIZE)//判断读出指针是否越界
 					{
-						StructSendBuff[pTCPClntInfo->nIdx].out=0;
+						pTCPClntInfo->StructSendBuff.out=0;
 					}
 				}
-				pthread_mutex_unlock(&StructSendBuff[pTCPClntInfo->nIdx].mutex);
+				pthread_mutex_unlock(&pTCPClntInfo->StructSendBuff.mutex);
 				len = i;
 
 
@@ -291,10 +290,10 @@ int CTCPClientManager::SendCharsToSendBuff(unsigned char *p,int index,int length
 	{
 		return -1;
 	}
-	pthread_mutex_lock(&StructSendBuff[index].mutex);//锁互斥锁
-	if(StructSendBuff[index].in==BUFFSIZE)//判断写入指针是否越界
+	pthread_mutex_lock(&m_TCPClientInfo[index].StructSendBuff.mutex);//锁互斥锁
+	if(m_TCPClientInfo[index].StructSendBuff.in==BUFFSIZE)//判断写入指针是否越界
 	{
-		StructSendBuff[index].in=0;
+		m_TCPClientInfo[index].StructSendBuff.in=0;
 	}
 	for(i=0;i<length;i++)
 	{
@@ -303,14 +302,14 @@ int CTCPClientManager::SendCharsToSendBuff(unsigned char *p,int index,int length
 		{
 			return i;
 		}
-		StructSendBuff[index].buff[StructSendBuff[index].in]=p[i];
-		StructSendBuff[index].in++;
-		if(StructSendBuff[index].in==BUFFSIZE)
+		m_TCPClientInfo[index].StructSendBuff.buff[m_TCPClientInfo[index].StructSendBuff.in]=p[i];
+		m_TCPClientInfo[index].StructSendBuff.in++;
+		if(m_TCPClientInfo[index].StructSendBuff.in==BUFFSIZE)
 		{
-			StructSendBuff[index].in=0;
+			m_TCPClientInfo[index].StructSendBuff.in=0;
 		}
 	}
-	pthread_mutex_unlock(&StructSendBuff[index].mutex);
+	pthread_mutex_unlock(&m_TCPClientInfo[index].StructSendBuff.mutex);
 	return i;
 }
 
@@ -322,20 +321,20 @@ int CTCPClientManager::RcveCharsFromRcveBuff(unsigned char *p,int index)
 	{
 		return -1;
 	}
-	pthread_mutex_lock(&StructRcvBuff[index].mutex);//锁互斥锁
-	if(StructRcvBuff[index].out==BUFFSIZE)//判断读出指针是否越界
+	pthread_mutex_lock(&m_TCPClientInfo[index].StructRcvBuff.mutex);//锁互斥锁
+	if(m_TCPClientInfo[index].StructRcvBuff.out==BUFFSIZE)//判断读出指针是否越界
 	{
-		StructRcvBuff[index].out=0;
+		m_TCPClientInfo[index].StructRcvBuff.out=0;
 	}
-	while(StructRcvBuff[index].in!=StructRcvBuff[index].out)
+	while(m_TCPClientInfo[index].StructRcvBuff.in!=m_TCPClientInfo[index].StructRcvBuff.out)
 	{
-		p[i]=StructRcvBuff[index].buff[StructRcvBuff[index].out];
-		StructRcvBuff[index].out++;
-		if(StructRcvBuff[index].out==BUFFSIZE)//判断读出指针是否越界
+		p[i]=m_TCPClientInfo[index].StructRcvBuff.buff[m_TCPClientInfo[index].StructRcvBuff.out];
+		m_TCPClientInfo[index].StructRcvBuff.out++;
+		if(m_TCPClientInfo[index].StructRcvBuff.out==BUFFSIZE)//判断读出指针是否越界
 		{
-			StructRcvBuff[index].out=0;
+			m_TCPClientInfo[index].StructRcvBuff.out=0;
 		}
 	}
-	pthread_mutex_unlock(&StructRcvBuff[index].mutex);
+	pthread_mutex_unlock(&m_TCPClientInfo[index].StructRcvBuff.mutex);
 	return i;
 }

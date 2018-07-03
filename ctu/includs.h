@@ -34,5 +34,8 @@
 #include "common.h"
 #include "TCPClient.h"
 #include "TCPClientManager.h"
+#include "TCPServer.h"
+#include "TCPCustom.h"
+#include "IEC104.h"
 
 #endif /* INCLUDS_H_ */

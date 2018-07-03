@@ -1,0 +1,18 @@
+/*
+ * IEC104.h
+ *
+ *  Created on: 2018Äê7ÔÂ3ÈÕ
+ *      Author: 15645
+ */
+
+#ifndef IEC104_H_
+#define IEC104_H_
+#include "includs.h"
+
+class IEC104 {
+public:
+	IEC104();
+	virtual ~IEC104();
+};
+
+#endif /* IEC104_H_ */

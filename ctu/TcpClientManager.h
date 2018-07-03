@@ -19,6 +19,8 @@ typedef struct _TCPCLIENT_INFO
 	char				AdptName[64];
 	void*				pTCPClient;
 	int					m_ExitFlag;
+	struct  Buff StructSendBuff;
+	struct  Buff StructRcvBuff;
 }TCPCLIENT_INFO, *PTCPCLIENT_INFO;
 
 
@@ -42,6 +44,7 @@ class CTCPClientManager
 private:
 	// TCPClient连接管理线程
     static int TCPClientThreadFunc( void* lparam );
+
 public:
 	TCPCLIENT_INFO	        m_TCPClientInfo[TCPCLIENT_MAX_NUM];
 	pthread_t				m_thread[TCPCLIENT_MAX_NUM];

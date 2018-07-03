@@ -1,0 +1,46 @@
+/*
+ * IEC104.h
+ *
+ *  Created on: 2018年7月3日
+ *      Author: 15645
+ */
+
+#ifndef IEC104_H_
+#define IEC104_H_
+#include "includs.h"
+#define TESTFR_CON    0x43 //测试确认
+#define TESTFR_ACT    0x83//测试激活
+#define STOPDT_CON    0x13//停止确认
+#define STOPDT_ACT    0x23//停止激活
+#define STARTDT_CON   0x07//开始确认
+#define STARTDT_ACT   0x0B//开始激活
+#define U_FRM         0X03//u贞
+#define S_FRM         0x01//s贞
+#define I_FRM         0x00//i贞
+
+#define DL_104_T0     30 //T0延时
+#define DL_104_T1     15 //
+#define DL_104_T2     10
+#define DL_104_T3     20
+
+#define DOT_TYPE_YX 1
+#define DOT_TYPE_YC 2
+#define DOT_TYPE_YM 3
+//T1发送方发送一个I格式报文或U格式报文后，必须在t1的时间内得到接收方的认可,否则主动关闭连接
+//T2在接收到I格式报文后，若经过t2时间未再收到新的I格式报文，则必须向发送方发送S格式帧,对已经接收到的I格式报文进行认可，显然t2必须小于t1。
+//T3子站RTU端每接收一帧I帧、S帧或者U帧将重新触发计时器t3，若在t3内未接收到任何报文，将向对方发送测试链路帧TESTFR
+
+#define DL_MAX_SEND_I_PAG 12
+#define DL_MAX_REV_I_PAG  8
+
+#ifndef BYTE
+typedef unsigned char BYTE;
+#endif
+
+class IEC104 {
+public:
+	IEC104();
+	virtual ~IEC104();
+};
+
+#endif /* IEC104_H_ */

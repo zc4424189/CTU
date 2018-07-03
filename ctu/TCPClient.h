@@ -41,6 +41,7 @@ public:
 	int Connect();
 	//向服务器端发送数据
 	int SendData(unsigned char * buf , int len);
+
 };
 
 #endif

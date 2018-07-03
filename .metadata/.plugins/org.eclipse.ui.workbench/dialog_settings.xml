@@ -4,6 +4,8 @@
 		<item value="false" key="WizardFileSystemResourceImportPage1.STORE_OVERWRITE_EXISTING_RESOURCES_ID"/>
 		<item value="false" key="WizardFileSystemResourceImportPage1.STORE_CREATE_CONTAINER_STRUCTURE_ID"/>
 		<list key="WizardFileSystemResourceImportPage1.STORE_SOURCE_NAMES_ID">
+			<item value="D:\104程序实例\qtester104\qtester104\src"/>
+			<item value="C:\Users\15645\Desktop\em9287\应用开发软件\通讯接口\以太网通讯\step3_tcpserver"/>
 			<item value="C:\Users\15645\Desktop\em9287\应用开发软件\典型应用\step4_tcpclient"/>
 		</list>
 	</section>
@@ -22,6 +24,13 @@
 	<section name="WorkbenchPreferenceDialogSettings">
 		<item value="-145" key="DIALOG_Y_ORIGIN"/>
 		<item value="-576" key="DIALOG_X_ORIGIN"/>
+	</section>
+	<section name="InstallationDialogSettings">
+		<item value="1052" key="DIALOG_WIDTH"/>
+		<item value="-261" key="DIALOG_Y_ORIGIN"/>
+		<item value="1034" key="DIALOG_HEIGHT"/>
+		<item value="-245" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Microsoft YaHei UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Microsoft YaHei UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.preferences.keysPreferencePage">
 	</section>

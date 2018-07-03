@@ -8,12 +8,11 @@
 
 #include <iostream>
 using namespace std;
-#include "../CIpcs.h"
-#include "../TCPClient.h"
-#include "../TcpClientManager.h"
+
 #include "../includs.h"
+#include "../TCPServer.h"
 int main() {
-	class CIpcs ipcs;
+	/*class CIpcs ipcs;
 	class CLogs log;
 	ipcs.CreatShareMemory(UP_TYPE,1);
 	ipcs.CreatShareMemory(DOWN_TYPE,1);
@@ -26,18 +25,29 @@ int main() {
 	tmanger.Start();
 	tmanger.Open(0);
 	tmanger.Open(1);
-	tmanger.Open(2);
-	unsigned char ss[1024];
-	unsigned char rss[1024];
-	ss[0]='h';
-	ss[1]='e';
-	ss[2]='l';
-	ss[3]='l';
-	ss[4]='o';
+	tmanger.Open(2);*/
+	unsigned char rcv1[2048];
+	unsigned char rcv2[2048];
+	memset(rcv1, 0, sizeof(rcv1));    // 将每个元素设置为1
+	memset(rcv1, 0, sizeof(rcv2));    // 将每个元素设置为1
+	int i,k;
+	class CTCPServer  m_TCPServer1;
+	class CTCPServer  m_TCPServer2;
+	m_TCPServer1.m_LocalPort = 1001;
+	m_TCPServer2.m_LocalPort = 1002;
+		// 创建Socket，启动TCP服务器侦听线程
+	if((m_TCPServer1.Open()<0)||(m_TCPServer2.Open()<0))
+		return -1;
 	while(true)
 	{
+		i=m_TCPServer1.pClientSocket->RcveCharsFromRcveBuff(rcv1);
+		/*cout<<"主程序共接收到"<<i<<"个字符"<<endl;*/
+		m_TCPServer1.pClientSocket->SendCharsToSendBuff(rcv1,i);
 
-		for(int i=0;i<3;i++)
+/*		k=m_TCPServer2.pClientSocket->RcveCharsFromRcveBuff(rcv2);
+
+		m_TCPServer2.pClientSocket->SendCharsToSendBuff(rcv2,k);*/
+/*		for(int i=0;i<3;i++)
 		{
 			if(tmanger.GetTCPClientState(i)==0)
 			{
@@ -52,10 +62,14 @@ int main() {
 					tmanger.RcveCharsFromRcveBuff(rss,i);
 				}
 			}
-		}
+		}*/
 
 		usleep(100000);
+
+
 	}
+	m_TCPServer1.Close( );
+	m_TCPServer2.Close();
 	return 0;
 }
 
