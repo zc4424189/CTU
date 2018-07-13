@@ -1,0 +1,15 @@
+[LOCAL_MACHINE]
+DHCP="0"
+DefaultGateway="192.168.201.19"
+IPAddress="192.168.201.189"
+SubnetMask="255.255.255.0"
+[NFS_SERVER]
+IPAddress="192.168.201.18"
+Mountpath="/d/public"
+[USER_EXE]
+Name="/mnt/usb1/test_emtronix"
+Parameters=""
+[ETH1]
+DefaultGateway="192.168.202.19"
+IPAddress="192.168.202.189"
+SubnetMask="255.225.225.0"
